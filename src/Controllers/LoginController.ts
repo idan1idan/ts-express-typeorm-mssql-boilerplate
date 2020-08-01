@@ -2,9 +2,7 @@ import { get, controller, post, use, bodyValidator } from './Decorators';
 import { Request, Response, NextFunction } from 'express';
 
 function logger(req: Request, res: Response, next: NextFunction) {
-    res.json()
     return;
-    next()
 }
 
 interface IPostLogin {
@@ -12,7 +10,7 @@ interface IPostLogin {
     password: string
 }
 
-@controller('')
+@controller('/auth')
 class LoginController {
     @get('/login')
     @use(logger)
