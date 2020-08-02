@@ -2,7 +2,8 @@ import { get, controller, post, use, bodyValidator } from './Decorators';
 import { Request, Response, NextFunction } from 'express';
 
 function logger(req: Request, res: Response, next: NextFunction) {
-    return;
+    console.log('logger')
+    next()
 }
 
 interface IPostLogin {

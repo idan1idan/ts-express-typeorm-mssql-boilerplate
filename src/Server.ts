@@ -14,10 +14,10 @@ class Server {
     constructor() {
         this.server = express()
         this.server.use(express.json());
-        // this.server.use(morgan('dev'))
-        // this.server.use(helmet())
-        // this.server.use(cors())
-        // dotenv.config();
+        this.server.use(morgan('dev'))
+        this.server.use(helmet())
+        this.server.use(cors())
+        dotenv.config();
         this.server.use(AppRouter.getInstance())
     }
 
