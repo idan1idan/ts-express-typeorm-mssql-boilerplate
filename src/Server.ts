@@ -5,6 +5,8 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import './Controllers/LoginController';
 import { AppRouter } from './AppRouter';
+import { errorHandler } from './Middlewares/errorHandler';
+import { notFound } from './Middlewares/notFound';
 
 type port = string | number;
 
@@ -19,6 +21,8 @@ class Server {
         this.server.use(cors())
         dotenv.config();
         this.server.use(AppRouter.getInstance())
+        this.server.use(errorHandler)
+        this.server.use(notFound)
     }
 
     listen(port: port, callBack: () => void) {
