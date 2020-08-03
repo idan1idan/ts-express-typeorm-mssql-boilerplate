@@ -7,7 +7,7 @@ import './Controllers/LoginController';
 import { AppRouter } from './AppRouter';
 import { errorHandler } from './Middlewares/errorHandler';
 import { notFound } from './Middlewares/notFound';
-import sqlConnection from './SQL/sqlConnection';
+import dbConnection from './SQL/dbConnection';
 
 
 type port = string | number;
@@ -28,7 +28,7 @@ class Server {
     }
 
     sqlConnect() {
-        sqlConnection();
+        dbConnection();
     }
 
     listen(port: port, callBack: () => void) {
