@@ -24,7 +24,7 @@ class LoginController {
             const userRepo = getConnection().getRepository(User);
             const user = await userRepo.create({ firstName, lastName, age });
             const result = await userRepo.save(user);
-            res.status(202).send(result)
+            res.status(201).send(result)
         } catch (error) {
             next(error);
         }
