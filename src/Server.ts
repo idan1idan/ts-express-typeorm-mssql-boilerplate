@@ -7,8 +7,6 @@ import './Controllers/LoginController';
 import { AppRouter } from './AppRouter';
 import { errorHandler } from './Middlewares/errorHandler';
 import { notFound } from './Middlewares/notFound';
-import dbConnection from './SQL/dbConnection';
-
 
 type port = string | number;
 
@@ -25,10 +23,6 @@ class Server {
         this.server.use(AppRouter.getInstance())
         this.server.use(errorHandler)
         this.server.use(notFound)
-    }
-
-    sqlConnect() {
-        dbConnection();
     }
 
     listen(port: port, callBack: () => void) {
