@@ -2,32 +2,32 @@ import { get, controller, post, use, bodyValidator } from './Decorators';
 import { Request, Response, NextFunction } from 'express';
 import { getConnection } from 'typeorm';
 import { User } from '../entity/User';
-function logger(req: Request, res: Response, next: NextFunction) {
-    console.log('logger')
-    next()
-}
 
 interface IPostLogin {
-    userName: string,
-    password: string
+    firstName: string,
+    lastName: string
+    age: string
 }
 
 @controller('/auth')
 class LoginController {
     @get('/login')
-    @use(logger)
     getLogin(req: Request, res: Response) {
         res.send(`You're logged in`)
     }
 
     @post('/login')
-    @bodyValidator('userName', 'password')
-    postUser(req: Request, res: Response) {
-        const { userName, password }: IPostLogin = req.body
-        res.json({
-            userName,
-            password
-        })
+    @bodyValidator('firstName', 'lastName', 'age')
+    async postUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { firstName, lastName, age }: IPostLogin = req.body
+            const userRepo = getConnection().getRepository(User);
+            const user = await userRepo.create({ firstName, lastName, age });
+            const result = await userRepo.save(user);
+            res.status(202).send(result)
+        } catch (error) {
+            next(error);
+        }
     }
 }
 export default LoginController
