@@ -1,6 +1,7 @@
 import { get, controller, post, use, bodyValidator } from './Decorators';
 import { Request, Response, NextFunction } from 'express';
-
+import { getConnection } from 'typeorm';
+import { User } from '../entity/User';
 function logger(req: Request, res: Response, next: NextFunction) {
     console.log('logger')
     next()
